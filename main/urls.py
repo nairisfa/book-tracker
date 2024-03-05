@@ -5,10 +5,12 @@ from main.views import logout_user
 from main.views import show_main, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id, login_user
 from main.views import edit_book
 from main.views import delete_book
+from main.views import add_book_ajax
 
 app_name = 'main'
 
 urlpatterns= [
+    path('create-book-ajax/', add_book_ajax, name='add_book_ajax'),
     path('delete/<int:id>', delete_book, name='delete_book'),
     path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('logout/', logout_user, name='logout'),

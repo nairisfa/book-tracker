@@ -10,6 +10,7 @@ from main.forms import BookForm
 from main.models import Book
 from django.http import HttpResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -109,3 +110,18 @@ def delete_book(request, id):
     book.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+def add_book_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        page = request.POST.get("page")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_book = Book(name=name, page=page, description=description, user=user)
+        new_book.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
