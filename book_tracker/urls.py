@@ -17,7 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from main.views import create_book_flutter
+
 urlpatterns = [
     path('', include('main.urls')),
+    path('auth/', include('authentication.urls')),
     path('admin/', admin.site.urls),
+    path('create-flutter/', create_book_flutter, name='create_book_flutter'),
+
 ]

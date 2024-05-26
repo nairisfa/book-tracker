@@ -1,5 +1,7 @@
 import datetime
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -125,3 +127,22 @@ def add_book_ajax(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+@csrf_exempt
+def create_book_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+
+        new_book = Book.objects.create(
+            user = request.user,
+            name = data["name"],
+            page = int(data["page"]),
+            description = data["description"]
+        )
+
+        new_book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)

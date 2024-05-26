@@ -32,7 +32,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form id="form" onsubmit="return false;">
+                  <form id="form">
                       {% csrf_token %}
                       <div class="mb-3">
                           <label for="name" class="col-form-label">Name:</label>
@@ -50,7 +50,7 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Book</button>
+                  <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal" onclick="addBook()">Add Book</button>
               </div>
           </div>
       </div>
